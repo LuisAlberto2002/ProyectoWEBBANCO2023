@@ -1,0 +1,54 @@
+body{
+    background-color: purple;
+    padding: 0;
+    margin: 0;
+}
+#navigation{
+    background-color: rgb(152, 41, 237);
+    border: solid 1px black;
+    height: 102px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+#mid{
+    text-align: justify;
+    width: fit-content;
+    height: fit-content;
+    margin-left: 40%;
+    display: inline-block;
+}
+#contenido>#tituloAviso{
+    
+    text-align: center;
+    font-style: italic;
+    font-size:xx-large;
+    color: white;
+}
+#aviso{
+    width: 50%;
+    margin-left: 24%;
+    padding: 20px;
+    size: 90px;
+    color: beige;
+    font-size: medium;
+}
+.reDa{
+    font-size: 30px;
+}
+
+#listaDatos{
+    color: white;
+    margin-top: -20px;
+    margin-left: 25%;
+}
+.seccion{
+    color: white;
+    display: inline-block;
+    margin-left: 10px;
+    border: solid 1px white;
+    background-color: violet;
+}
+#logo{
+    display: inline-block;
+}

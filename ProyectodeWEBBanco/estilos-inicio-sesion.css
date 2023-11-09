@@ -1,0 +1,35 @@
+body{
+    background-image: url(bosque-morado.jpeg);
+    background-size: cover;
+}
+form{
+    background-color:white;
+    border: solid 1px green;
+    height:160px;
+    width: fit-content;
+    margin-left: 40%;
+    margin-top: 18%;
+}
+h1{
+    font-size:large;
+    text-align: center;
+}
+div{
+    margin: 10px;
+}
+#cancelar{
+    margin-left: 17px;
+}
+#navigation{
+    background-color: rgb(152, 41, 237);
+    border: solid 1px black;
+    height: 102px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+#logo{
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+}
