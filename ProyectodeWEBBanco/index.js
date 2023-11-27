@@ -6,7 +6,13 @@ const app=express();
 app.use('/assets',express.static(path.join(__dirname,'assets')));
 app.use('',express.static(path.join(__dirname,'public')));
 
+app.get('',(req,res)=>{
+    res.sendFile('/public/PaginaInicio.html');
+})
 
+app.get('*',(req,res)=>{
+    res.sendFile('/public/error.html');
+})
 
 app.listen(port,()=>{
     console.log('Conexion establecida');

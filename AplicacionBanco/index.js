@@ -16,7 +16,7 @@ app.use('', rutaLogin);
 
 mongoose.connect(mongoUrl).then(client=>{
     app.listen(3000,()=>{
-        console.log('VBDB ONLINE')
+        console.log('VBDB ONLINE');
     })
 }).catch(err=>{
     console.log('VBDB DISSABLE', err);
