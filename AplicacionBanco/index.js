@@ -14,8 +14,6 @@ app.use('', rutaLogin);
 
 //app.use('',rutas);
 
-app.get('/estilos/',)
-
 mongoose.connect(mongoUrl).then(client=>{
     app.listen(3000,()=>{
         console.log('VBDB ONLINE')
