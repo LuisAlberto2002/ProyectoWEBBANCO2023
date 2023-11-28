@@ -21,7 +21,7 @@ button.addEventListener('click',function(e){
             //console.log('Role: ',response.role);
             if(response.role=="Administrador"){
                 alert("!USUARIO VERIFICADO!");
-                window.open('file:///C:/Users/vulpe/OneDrive/Escritorio/ProyectoFinalWEB/ProyectodeWEBBanco/user.html','_self');  
+                window.open('/ProyectodeWEBBanco/public/user.html','_self');  
             }else if(response.role=="cliente"){
                 alert("!USUARIO VERIFICADO!");
                 window.open('file:///C:/Users/vulpe/OneDrive/Escritorio/ProyectoFinalWEB/ProyectodeWEBBanco/user.html','_self');
