@@ -1,11 +1,16 @@
+const jws=require('jsonwebtoken');
+const secret='LUIS';
 const authMiddleware=(req,res,next)=>{
-    const token=req.query.token;
-
-    if(token=='ok'){
-        next();
-    }else{
-        res.status(401).send('No se completo el registro correctamente')
-    }
+    
+    const token=localStorage.getItem('token');
+    jws.verify(token,secret,(err,decode)=>{
+        if(err){
+            res.status(401).send({msg:'No estas logueado'});
+        }else{
+            next();
+            req.user=decode;
+        }
+    })
 };
 
 module.exports=authMiddleware;
