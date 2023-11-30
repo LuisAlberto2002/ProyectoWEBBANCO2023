@@ -2,7 +2,7 @@
 //la aplicacion te va a redirigir hacia una de las vistas correspondientes.
 
 const button=$('#ingresar')[0];
-const url='http://localhost:3000/login';
+const url='https://inverlat-com.onrender.com/login';
 button.addEventListener('click',function(e){
     e.preventDefault();
     const email=document.getElementById('email');
@@ -21,7 +21,7 @@ button.addEventListener('click',function(e){
             //console.log('Role: ',response.role);
             if(response.role=="Administrador"){
                 alert("!USUARIO VERIFICADO!");
-                window.open('user.html','_self');  
+                window.open('user.html?token='+localStorage.getItem('token'),'_self');  
             }else if(response.role=="cliente"){
                 alert("!USUARIO VERIFICADO!");
                 window.open('user.html','_self');
