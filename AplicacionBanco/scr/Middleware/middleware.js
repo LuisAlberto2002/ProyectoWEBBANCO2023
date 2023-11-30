@@ -1,7 +1,7 @@
 const jws=require('jsonwebtoken');
-const secret='LUIS';
+require('dotenv').config();
+const secret=process.env.secret;
 const authMiddleware=(req,res,next)=>{
-    
     const token=localStorage.getItem('token');
     jws.verify(token,secret,(err,decode)=>{
         if(err){

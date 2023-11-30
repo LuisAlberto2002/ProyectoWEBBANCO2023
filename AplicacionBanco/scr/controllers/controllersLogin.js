@@ -1,8 +1,9 @@
 require('mongoose');
+require('dotenv').config();
 const jws=require('jsonwebtoken');
 const userModel=require('./../models/userModel');
 const tokenModel=require('./../models/tokenModel');
-const secret='LUIS';
+const secret=process.env.secret;
 class userControllers{
     login(req,res){
 
@@ -10,7 +11,7 @@ class userControllers{
         /*console.log("Email: ",email);
         console.log("Password: ",password);*/
         userModel.findOne({email, password}).then((response)=>{
-            console.log(response);
+            
             if(response){
                 const token=jws.sign({
                     _id:response._id,
