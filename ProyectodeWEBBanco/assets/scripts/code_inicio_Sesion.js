@@ -24,10 +24,10 @@ button.addEventListener('click',function(e){
                 window.open('user.html','_self');  
             }else if(response.role=="cliente"){
                 alert("!USUARIO VERIFICADO!");
-                window.open('file:///C:/Users/vulpe/OneDrive/Escritorio/ProyectoFinalWEB/ProyectodeWEBBanco/user.html','_self');
+                window.open('user.html','_self');
             }else if(response.role.value=="servicio"){
                 alert("!USUARIO VERIFICADO!");
-                window.open('file:///C:/Users/vulpe/OneDrive/Escritorio/ProyectoFinalWEB/ProyectodeWEBBanco/user.html','_self');
+                window.open('user.html','_self');
             }
         },
         error: (err) => {

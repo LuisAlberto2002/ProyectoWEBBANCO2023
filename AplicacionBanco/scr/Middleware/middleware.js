@@ -8,7 +8,6 @@ const authMiddleware=(req,res,next)=>{
             res.status(401).send({msg:'No estas logueado'});
         }else{
             next();
-            req.user=decode;
         }
     })
 };
