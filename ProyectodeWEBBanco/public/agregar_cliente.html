@@ -51,7 +51,7 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <h2 class="mb-4">Agregar Cliente</h2>
-                <form id="agregarClienteForm" action="/agregar_cliente" method="post">
+                <form id="agregarClienteForm" action="'https://inverlat-com.onrender.com/agregar_cliente'" method="post">
                     <div class="mb-3">
                         <label for="name" class="form-label">Nombre:</label>
                         <input type="text" name="name" class="form-control" required>
@@ -97,7 +97,7 @@
     
                     $.ajax({
                         type: form.attr('method'),
-                        url: 'https://inverlat-com.onrender.com/agregar_cliente',
+                        url: form.attr('action'),
                         data: form.serialize(),
                         success: function (data) {
                             if (data.error) {
