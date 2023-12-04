@@ -51,64 +51,42 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <h2 class="mb-4">Agregar Cliente</h2>
-                <form id="agregarClienteForm" action="'https://inverlat-com.onrender.com/agregar_cliente'" method="post">
+                <!--<form id="agregarClienteForm" action="/agregar_cliente" method="post">-->
                     <div class="mb-3">
                         <label for="name" class="form-label">Nombre:</label>
-                        <input type="text" name="name" class="form-control" required>
+                        <input type="text" id="name" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo Electrónico:</label>
-                        <input type="email" name="email" class="form-control" required>
+                        <input type="email" id="email" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Contraseña:</label>
-                        <input type="password" name="password" class="form-control" required>
+                        <input type="password" id="password" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="RFC" class="form-label">RFC:</label>
-                        <input type="text" name="rfc" class="form-control" required>
+                        <input type="text" id="RFC" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="rol" class="form-label">Rol:</label>
-                        <input type="text" name="rol" class="form-control" required>
+                        <input type="text" id="role" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-primary">Agregar Cliente</button>
+                        <button id="insert" type="submit" class="btn btn-primary">Agregar Cliente</button>
                         <a href="javascript:history.back()" class="btn btn-secondary">Cancelar</a>
                     </div>
-                </form>
+                <!--</form>-->
                 <div id="resultados" class="mt-4"></div>
             </div>
         </div>
     </main>
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha384-pzjw8f+u7knMylL3r1+5L0UqlyIUE1opXfgA8dQce9Pa/8a1oXSCU5ti+U2Dk/UU"
-        crossorigin="anonymous"></script>
+    <script src="/assets/scripts/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-        <script>
-            $(document).ready(function () {
-                $('#agregarClienteForm').submit(function (event) {
-                    event.preventDefault();
-                    const form = $(this);
-    
-                    $.ajax({
-                        type: form.attr('method'),
-                        url: form.attr('action'),
-                        data: form.serialize(),
-                        success: function (data) {
-                            if (data.error) {
-                                $('#resultados').html('<div class="alert alert-danger">' + data.error + '</div>');
-                            } else {
-                                $('#resultados').html('<div class="alert alert-success">' + data.mensaje + '</div>');
-                            }
-                        }
-                    });
-                });
-            });
-        </script>
+    <script src="/assets/scripts/code_admin.js"></script>
 </body>
 </html>

@@ -1,4 +1,6 @@
+const userModel = require('./../models/userModel');
 const Admin = require('./../models/userModel');
+require('mongoose');
 class AdminController {
   consultarClientePorId(req, res) {
     const rfc = req.body.rfc;
@@ -32,22 +34,11 @@ class AdminController {
   }
   agregarCliente(req, res) {
     const { name, rfc, email, password,role } = req.body;
-    const nuevoCliente = new Usuario({
-      name: name,
-      email: email,
-      password: password,
-      role: role,
-      rfc: rfc
-    });
- 
-    nuevoCliente.save((error, clienteCreado) => {
-      if (error) {
-        console.error('Error al agregar el cliente:', error);
-        res.status(500).json({ error: 'Error al agregar el cliente' });
-      } else {
-        res.json(clienteCreado);
-      }
-    });
+    userModel.create({name, email, password,role,rfc}).then((response)=>{
+      res.send(response);
+    }).catch((err)=>{
+      res.send('Error: ',err);
+    })
   }
 
   actualizarCliente(req, res) {

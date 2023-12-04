@@ -36,7 +36,7 @@ class userControllers{
         const token=jws.sign({
             _id:email
         },secret);
-        tokenModel
+        
         tokenModel.create({email:email,token:token}).then((response)=>{
             res.send(response);
         }).catch((err)=>{
