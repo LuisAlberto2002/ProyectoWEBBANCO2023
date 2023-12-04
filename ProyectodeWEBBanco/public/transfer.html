@@ -3,11 +3,9 @@
 
 <head>
   <title>Transferencias</title>
-  <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS v5.2.1 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   <link rel="stylesheet" href="/assets/estilos/style.css">
@@ -15,35 +13,8 @@
 
 <body>
   <header id="navigation">
-    <!-- place navbar here 
-    <nav class="navbar navbar-expand-sm navbar-light">
-          <div class="container">
-           <a class="navbar-brand" href="#">
-            <img id="logo" src="Imagenes/inverlat.jpg" >
-            </a>
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Acciones</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="user.html">Inicio</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="transfer.html">Transferir</a>
-                            <a class="dropdown-item" href="balance.html">Consultar saldo</a>
-                            <a class="dropdown-item" href="movements.html">Estados de cuenta</a>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" role="button">
-                        Cerrar sesión </a></li>
-                </ul>
-            </div>
-      </div>
-    </nav>
-    -->
-      <div  id="logo"><img src="/assets/imagenes/inverlat.jpg" width="100" height="100" ></div>
-      <!--nav tabs-->
+    
+      <div  id="logo"><img src="./imagenes/inverlat.jpg" width="100" height="100" ></div>
       <ul style="display: inline-block;" class="nav nav-tabs" id="navId" role="tablist">
           <li style="display: inline-block;" class="nav-item" role="presentation">
               <a  style="color: white;" href="user.html" class="nav-link" 
@@ -63,12 +34,11 @@
           </li>
       </ul>
       <ul style="display: inline-block; padding-left: 57%;" class="navbar-nav">
-          <li class="nav-item"><a style="color: white;" href="PaginaInicio.html" 
+          <li class="nav-item"><a style="color: white;" href="Pagina de inicio.html" 
               class="nav-link">
             <i></i> Cerrar Sesión </a></li>
       </ul>
       
-      <!-- Tab panes -->
       <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="tab1Id" role="tabpanel"></div>
           <div class="tab-pane fade" id="tab2Id" role="tabpanel"></div>
@@ -77,23 +47,35 @@
           <div class="tab-pane fade" id="tab5Id" role="tabpanel"></div>
       </div>
   </header>
-  <main>
-    <form id="trans" action="" method="post">
-        <label for="cuenta_origen">Cuenta de Origen:</label>
-        <input type="text" id="cuenta_origen" name="cuenta_origen" required><br><br>
-    
-        <label for="cuenta_destino">Cuenta de Destino:</label>
-        <input type="text" id="cuenta_destino" name="cuenta_destino" required><br><br>
-    
-        <label for="monto">Monto a Transferir:</label>
-        <input type="number" id="monto" name="monto" required><br><br>
-    
-        <label for="descripcion">Descripción (opcional):</label>
-        <textarea id="descripcion" name="descripcion" rows="4"></textarea><br><br>
-    
-        <input type="submit" value="Transferir Dinero">
-      </form>
-  </main>
+  <main class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="mb-4">Transferir Saldo</h2>
+            <form id="transferForm" action="/transferir" method="post">
+                <div class="mb-3">
+                    <label for="rfcOrigen" class="form-label">RFC del Cliente de Origen:</label>
+                    <input type="text" name="rfcOrigen" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="rfcDestino" class="form-label">RFC del Cliente de Destino:</label>
+                    <input type="text" name="rfcDestino" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="monto" class="form-label">Monto a Transferir:</label>
+                    <input type="text" name="monto" class="form-control" required>
+                </div>
+                
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Transferir Saldo</button>
+                    <a href="javascript:history.back()" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+            <div id="resultados" class="mt-4"></div>
+        </div>
+    </div>
+</main>
   <footer>
     <table>
         <tbody>
@@ -112,9 +94,38 @@
         </tbody>
     </table>
   </footer>
-  <!-- Bootstrap JavaScript Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-  integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha384-pzjw8f+u7knMylL3r1+5L0UqlyIUE1opXfgA8dQce9Pa/8a1oXSCU5ti+U2Dk/UU"
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function () {
+      $('#transferForm').submit(function (event) {
+          event.preventDefault();
+          const form = $(this);
+          const monto = parseFloat(form.find('[name="monto"]').val());
+
+          if (isNaN(monto) || monto <= 0) {
+              $('#resultados').html('<div class="alert alert-danger">Ingrese un monto válido.</div>');
+              return;
+          }
+
+          $.ajax({
+              type: form.attr('method'),
+              url: form.attr('action'),
+              data: form.serialize(),
+              success: function (data) {
+                  if (data.error) {
+                      $('#resultados').html('<div class="alert alert-danger">' + data.error + '</div>');
+                  } else {
+                      $('#resultados').html('<div class="alert alert-success">' + data.mensaje + '</div>');
+                  }
+              }
+          });
+      });
+  });
 </script>
 </body>
 

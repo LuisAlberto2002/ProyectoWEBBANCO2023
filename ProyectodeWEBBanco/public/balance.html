@@ -36,7 +36,7 @@
         </li>
     </ul>
     <ul style="display: inline-block; padding-left: 57%;" class="navbar-nav">
-        <li class="nav-item"><a style="color: white;" href="Pagina de inicio.html" 
+        <li class="nav-item"><a style="color: white;" href="PaginaInicio.html" 
             class="nav-link">
           <i></i> Cerrar Sesión </a></li>
     </ul>
@@ -50,15 +50,29 @@
         <div class="tab-pane fade" id="tab5Id" role="tabpanel"></div>
     </div>
 </header>
-  <main>
-    <script id="sald" type="text/x-handlebars-template">
-        <p class="Saldo">Saldo actual</p>
-        <p class="balance">{{saldo}} MX</p>
-    </script>
-    <!-- borrar cuando haya javascript -->
-    <p class="Saldo">Saldo actual</p>
-    <p class="balance">5184.46 MX</p>
-  </main>
+<main class="container mt-4">
+  <div class="row">
+      <div class="col-md-6 offset-md-3">
+          <h2 class="mb-4">Consultar Saldo</h2>
+          <!-- Contenido específico para consultar saldo -->
+          <form action="/saldo" method="get">
+              <div class="mb-3">
+                  <label for="clienteId" class="form-label">ID del Cliente:</label>
+                  <input type="text" name="clienteId" class="form-control" required>
+              </div>
+              
+              <div class="mb-3">
+                  <button type="submit" class="btn btn-primary">Consultar Saldo</button>
+                  <!-- Botón de cancelar -->
+                  <a href="javascript:history.back()" class="btn btn-secondary">Cancelar</a>
+              </div>
+          </form>
+
+          <!-- Espacio para mostrar los resultados del saldo -->
+          <div id="resultados" class="mt-4"></div>
+      </div>
+  </div>
+</main>
   <footer>
   
     <table>
@@ -78,10 +92,29 @@
         </tbody>
     </table>
   </footer>
-  <!-- Bootstrap JavaScript Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha384-pzjw8f+u7knMylL3r1+5L0UqlyIUE1opXfgA8dQce9Pa/8a1oXSCU5ti+U2Dk/UU"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function () {
+        $('form').submit(function (event) {
+            event.preventDefault();
+            const form = $(this);
+
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function (data) {
+                    $('#resultados').html(JSON.stringify(data, null, 2));
+                }
+            });
+        });
+    });
+</script>
 </body>
 
 </html>
