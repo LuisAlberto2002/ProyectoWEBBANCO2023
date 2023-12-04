@@ -12,7 +12,7 @@ button.addEventListener('click',(event)=>{
         type:'POST',
         data:JSON.stringify({
             name: name.value,      
-            email: email.value+"@inverlat.com",
+            email: email.value,
             password: password.value,
             rfc: rfc.value,
             role: role.value
