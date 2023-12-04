@@ -1,9 +1,9 @@
-const Client = require('./../models/client');
+const Client = require('./../models/ClienteModel');
 class ClientController {
 
     saldo(req, res){
-      const clienteId = req.params.id; 
-      Cliente.findById(clientId, 'saldo', (error, client) => {
+      const rfc = req.params.rfc; 
+      Cliente.findById(rfc, 'saldo', (error, client) => {
         if (error) {
           console.error('Error al consultar el cliente:', error);
           res.status(500).json({ error: 'Error al consultar el cliente' });

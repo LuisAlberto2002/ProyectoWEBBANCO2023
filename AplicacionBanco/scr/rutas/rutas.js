@@ -1,30 +1,24 @@
 const router=require('express').Router();
 const express=require('express');
 const middleware=require('./../Middleware/middleware');
-const clientControllers=require('./../controllers/controllersCliente');
-const adminControllers=require('./../controllers/controllersAdmin');
-const serviceControllers=require('./../controllers/controllersServicio');
+const clientControllers=require('./../controllers/ClientController');
+const adminControllers=require('./../controllers/AdminController');
+const serviceControllers=require('./../controllers/ServiceController');
 router.use('',middleware);
-/*router.use('',express.json());
+router.use('',express.json());
 
 
-router.use('/clientes',middleware);
-router.use('/admin',middleware);
-router.use('/servicios',middleware);
+router.post('/actualizar_cliente',adminControllers.actualizarCliente);
+router.post('/agregar_cliente',adminControllers.agregarCliente);
+router.post('/agregar_servicio',serviceControllers.agregarservicio);
+router.get('/saldo',clientControllers.saldo);
 
-router.get('/clientes/saldo',clientControllers.saldo);
-router.post('/Clientes/ContratarServicio',clientControllers.serviciosCont);
-router.get('/clientes/ConsultarServicio',clientControllers.serviciosCons);
-router.post('/clientes/transferirDinero',clientControllers.realizarTransferencia);
+router.post('/cobrar',serviceControllers.cobrar);
+router.post('/consultarCliente',adminControllers.consultarClientePorId);
+router.post('/eliminarCliente',adminControllers.eliminarCliente);
 
-router.get('/admins/consultarCliente',adminControllers.consultarClientePorId);
-router.delete('/admins/eliminarCliente',adminControllers.eliminarCliente);
-router.post('/admins/agregarCliente',adminControllers.agregarCliente);
+router.post('/eliminar_servicio',serviceControllers.eliminarServicio);
+router.get('/serviciosCons',clientControllers.serviciosCons);
+router.post('/transferir',clientControllers.transferir);
 
-router.delete('/servicios/eliminarServicio',serviceControllers.eliminarServicio);
-router.post('/servicios/agregarServicio',serviceControllers.agregarServicio);
-router.post('/servicios/cobrarClienteUnico',serviceControllers.cobrar);
-router.post('/servicios/cobrarTodos',serviceControllers.Todos);
-router.get('/servicios/saldo',serviceControllers.saldo);
-*/
 module.exports=router;

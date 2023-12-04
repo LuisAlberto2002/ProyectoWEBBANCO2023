@@ -18,16 +18,16 @@ button.addEventListener('click',function(e){
         dataType:'json',
         success: (response) => {
             localStorage.setItem('token',response.token);
-            //console.log('Role: ',response.role);
+            
             if(response.role=="Administrador"){
                 alert("!USUARIO VERIFICADO!");
-                window.open('user.html?token='+localStorage.getItem('token'),'_self');  
+                window.open('vistaAdmin.html?token='+localStorage.getItem('token'),'_self');  
             }else if(response.role=="cliente"){
                 alert("!USUARIO VERIFICADO!");
-                window.open('user.html','_self');
-            }else if(response.role.value=="servicio"){
+                window.open('user.html?token='+localStorage.getItem('token'),'_self');
+            }else if(response.role=="servicio"){
                 alert("!USUARIO VERIFICADO!");
-                window.open('user.html','_self');
+                window.open('ver_servicio.html?token='+localStorage.getItem('token'),'_self');
             }
         },
         error: (err) => {

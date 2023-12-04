@@ -1,4 +1,4 @@
-const Service = require('./../models/service');
+const Service = require('./../models/ServicioModel');
 class ServiceController {
     eliminarServicio(req, res){
         const serviceId = req.body;

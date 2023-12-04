@@ -1,8 +1,8 @@
-const Admin = require('./../models/admin');
+const Admin = require('./../models/userModel');
 class AdminController {
   consultarClientePorId(req, res) {
-    const clienteId = req.body.clienteId;
-    Cliente.findById(clienteId, (error, cliente) => {
+    const rfc = req.body.rfc;
+    Cliente.findById(rfc, (error, cliente) => {
       if (error) {
         console.error('Error al consultar el cliente:', error);
         res.status(500).json({ error: 'Error al consultar el cliente' });
@@ -16,8 +16,8 @@ class AdminController {
     });
   }
   eliminarCliente(req, res) {
-    const clienteId = req.body.clienteId;
-    Cliente.findByIdAndRemove(clienteId, (error, clienteEliminado) => {
+    const rfc = req.body.rfc;
+    Cliente.findByIdAndRemove(rfc, (error, clienteEliminado) => {
       if (error) {
         console.error('Error al eliminar el cliente:', error);
         res.status(500).json({ error: 'Error al eliminar el cliente' });
@@ -31,8 +31,15 @@ class AdminController {
     });
   }
   agregarCliente(req, res) {
-    const { nombre, fechaNacimiento, RFC, Servicios, email, password } = req.body;
-    const nuevoCliente = new Cliente({ nombre, fechaNacimiento, RFC, Servicios, email, password });
+    const { name, rfc, email, password,role } = req.body;
+    const nuevoCliente = new Usuario({
+      name: name,
+      email: email,
+      password: password,
+      role: role,
+      rfc: rfc
+    });
+ 
     nuevoCliente.save((error, clienteCreado) => {
       if (error) {
         console.error('Error al agregar el cliente:', error);
