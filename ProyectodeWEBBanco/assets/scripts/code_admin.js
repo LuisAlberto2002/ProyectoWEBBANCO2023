@@ -3,7 +3,7 @@ const url='https://inverlat-com.onrender.com/agregar_cliente';
 button.addEventListener('click',(event)=>{
     event.preventDefault();
     const name=document.getElementById('name');
-    const email=document.getElementById('name');
+    const email=document.getElementById('email');
     const password=document.getElementById('password');
     const rfc=document.getElementById('RFC');
     const role=document.getElementById('role');
