@@ -51,30 +51,30 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <h2 class="mb-4">Actualizar Cliente</h2>
-                <form id="actualizarClienteForm" action="/actualizar_cliente" method="post">
+                <form id="actualizarClienteForm">
                     <div class="mb-3">
-                        <label for="clienteId" class="form-label">ID del Cliente:</label>
-                        <input type="text" name="clienteId" class="form-control" required>
+                        <label for="clienteId" class="form-label">RFC del cliente: </label> del Cliente:</label>
+                        <input type="text" id="RFC" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="nuevosDatos[name]" class="form-label">Nuevo Nombre:</label>
-                        <input type="text" name="nuevosDatos[name]" class="form-control">
+                        <input type="text" id="name" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="nuevosDatos[email]" class="form-label">Nuevo Correo Electrónico:</label>
-                        <input type="email" name="nuevosDatos[email]" class="form-control">
+                        <input type="email" id="email" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="nuevosDatos[password]" class="form-label">Nueva Contraseña:</label>
-                        <input type="password" name="nuevosDatos[password]" class="form-control">
+                        <input type="password" id="password" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="nuevosDatos[RFC]" class="form-label">Nuevo RFC:</label>
-                        <input type="text" name="nuevosDatos[RFC]" class="form-control">
+                        <input type="text" id="RFC-new" class="form-control">
                     </div>
                     
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-primary">Actualizar Cliente</button>
+                        <button type="submit" id="Actualizar" class="btn btn-primary">Actualizar Cliente</button>
                         <a href="javascript:history.back()" class="btn btn-secondary">Cancelar</a>
                     </div>
                 </form>
@@ -83,11 +83,10 @@
         </div>
     </main>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha384-pzjw8f+u7knMylL3r1+5L0UqlyIUE1opXfgA8dQce9Pa/8a1oXSCU5ti+U2Dk/UU"
-        crossorigin="anonymous"></script>
+    <script src="/assets/scripts/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
+    <script src="./../assets//scripts/code_actualizar.js"></script>
 </body>
 </html>

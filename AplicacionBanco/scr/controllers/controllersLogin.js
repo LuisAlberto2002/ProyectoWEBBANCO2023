@@ -2,14 +2,12 @@ require('mongoose');
 require('dotenv').config();
 const jws=require('jsonwebtoken');
 const userModel=require('./../models/userModel');
-const tokenModel=require('./../models/tokenModel');
+//const tokenModel=require('./../models/tokenModel');
 const secret=process.env.secret;
 class userControllers{
     login(req,res){
 
         const {email,password}=req.body;
-        /*console.log("Email: ",email);
-        console.log("Password: ",password);*/
         userModel.findOne({email, password}).then((response)=>{
             
             if(response){
@@ -18,9 +16,10 @@ class userControllers{
                     email:response.email,
                     role: response.role
                 },secret);
+
                 res.send({
                     token,
-                    role: response.role
+                    role: response.role,
                 });
             }else{
                 res.sendStatus(400);
@@ -31,7 +30,7 @@ class userControllers{
         });
     }
 
-    tokenCreate(req,res){
+    /*tokenCreate(req,res){
         const {email}=req.body;
         const token=jws.sign({
             _id:email
@@ -42,6 +41,6 @@ class userControllers{
         }).catch((err)=>{
             res.send('Error: ', err);
         });
-    }  
+    }  */
 }
 module.exports=new userControllers();

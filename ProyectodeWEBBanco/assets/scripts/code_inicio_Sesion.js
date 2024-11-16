@@ -1,8 +1,7 @@
-//realizara una peticion hacia la base de datos para comprobar si eres un administrador, cliente o servicio. Si ese es el caso entonces 
-//la aplicacion te va a redirigir hacia una de las vistas correspondientes.
-
 const button=$('#ingresar')[0];
-const url='https://inverlat-com.onrender.com/login';
+//const url='https://inverlat-com.onrender.com/login';
+const url='http://localhost:3000/login';
+
 button.addEventListener('click',function(e){
     e.preventDefault();
     const email=document.getElementById('email');
@@ -17,17 +16,16 @@ button.addEventListener('click',function(e){
         contentType:"application/json",
         dataType:'json',
         success: (response) => {
-            localStorage.setItem('token',response.token);
+            const token = response.token;
             
             if(response.role=="Administrador"){
                 alert("!USUARIO VERIFICADO!");
-                window.open('vistaAdmin.html?token='+localStorage.getItem('token'),'_self');  
+                
+                document.cookie = 'Token=' + token + '; path=/';
+                window.open('vistaAdmin.html','_self');  
             }else if(response.role=="cliente"){
                 alert("!USUARIO VERIFICADO!");
-                window.open('user.html?token='+localStorage.getItem('token'),'_self');
-            }else if(response.role=="servicio"){
-                alert("!USUARIO VERIFICADO!");
-                window.open('ver_servicio.html?token='+localStorage.getItem('token'),'_self');
+                window.open('user.html','_self');
             }
         },
         error: (err) => {

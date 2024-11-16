@@ -1,5 +1,6 @@
 const userModel = require('./../models/userModel');
-const Admin = require('./../models/userModel');
+const statusModel = require("../models/statusModel");
+//const Admin = require('./../models/userModel');
 require('mongoose');
 class AdminController {
   consultarClientePorId(req, res) {
@@ -18,29 +19,25 @@ class AdminController {
     });
   }
   eliminarCliente(req, res) {
-    const rfc = req.body.rfc;
-    Cliente.findByIdAndRemove(rfc, (error, clienteEliminado) => {
-      if (error) {
-        console.error('Error al eliminar el cliente:', error);
-        res.status(500).json({ error: 'Error al eliminar el cliente' });
-      } else {
-        if (clienteEliminado) {
-          res.json({ mensaje: 'Cliente eliminado con éxito' });
-        } else {
-          res.status(404).json({ error: 'Cliente no encontrado' });
-        }
-      }
-    });
+    const filter = {rfc: req.body.rfc};
+    const update = {status:"Inactivo"};
+    userModel.findOneAndUpdate(filter, update,{new:true}).then((updateUser) => {
+      res.send(updateUser);
+    }).catch((err)=>{
+      console.error('Error actualizando el ususario',err);
+    })
   }
   agregarCliente(req, res) {
-    const { name, rfc, email, password,role } = req.body;
-    userModel.create({name, email, password,role,rfc}).then((response)=>{
+    const { name, rfc, email, password,rol, status } = req.body;
+    //Descodificar los datos
+    userModel.create({name, rfc,email, password,rol,status}).then((response)=>{
       res.send(response);
     }).catch((err)=>{
       res.send('Error: ',err);
     })
   }
 
+  ///Modificar actualizarCliente y consultar cliente. Ya con eso tenemos el desarrollo del backend completo
   actualizarCliente(req, res) {
     const { clienteId, nuevosDatos } = req.body;
 
