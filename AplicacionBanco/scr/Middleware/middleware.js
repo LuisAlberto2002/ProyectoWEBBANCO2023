@@ -11,10 +11,10 @@ const authMiddleware=(req,res,next)=>{
     jws.verify(token,secret,(err,decode) => {
         if(err){
             res.status(401).send({msg:'No estas logueado'});
-            window.open("/inicio_sesion");
+            //window.open("/inicio_sesion");
         }else{
             next();
-            res.send(decode);
+            res.send(req);
         }
     }) 
     /*const token=req.query.params.token;

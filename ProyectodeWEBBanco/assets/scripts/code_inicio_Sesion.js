@@ -1,4 +1,5 @@
 const button=$('#ingresar')[0];
+const cryptojs = require('crypto-js');
 //const url='https://inverlat-com.onrender.com/login';
 const url='http://localhost:3000/login';
 
@@ -6,12 +7,19 @@ button.addEventListener('click',function(e){
     e.preventDefault();
     const email=document.getElementById('email');
     const passwd=document.getElementById('password');
+
+    const datos = [email.value,passwd.value];
+    const datosC = [];
+    for(i=0; i<2; i++){
+        datosC.push(CryptoJS.AES.encrypt(datos[i],key));
+    }
+    console.log(datosC);
     $.ajax({
         url:url,
         type:'POST',
         data:JSON.stringify({
-            email:email.value,
-            password:passwd.value,
+            email:datosC[0],
+            password:datosC[1],
         }),
         contentType:"application/json",
         dataType:'json',

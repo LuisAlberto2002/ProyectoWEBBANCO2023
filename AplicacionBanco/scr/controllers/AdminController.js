@@ -1,25 +1,26 @@
 const userModel = require('./../models/userModel');
-const statusModel = require("../models/statusModel");
-//const Admin = require('./../models/userModel');
+require('dotenv').config();
+const key = process.env.key;
+//const cryptoJS = require("crypto-js");
+require('crypto-js')
 require('mongoose');
 class AdminController {
   consultarClientePorId(req, res) {
-    const rfc = req.body.rfc;
-    Cliente.findById(rfc, (error, cliente) => {
-      if (error) {
-        console.error('Error al consultar el cliente:', error);
-        res.status(500).json({ error: 'Error al consultar el cliente' });
-      } else {
-        if (cliente) {
-          res.json(cliente);
-        } else {
-          res.status(404).json({ error: 'Cliente no encontrado' });
-        }
+
+    const filter = {rfc: cryptoJS.AES.decrypt(req.body.rfc, key)};
+    if(!filter){
+        res.status(400).send({message: 'No se ingreso ningun dato'});
+    }
+    userModel.find(filter).then((response)=>{
+      if(!response.ok){
+        res.status(400).send({message: 'No se pudo encontrar el cliente'});
+      }else{
+        res.send(response);
       }
-    });
+    })
   }
   eliminarCliente(req, res) {
-    const filter = {rfc: req.body.rfc};
+    const filter = {rfc: cryptoJS.AES.decrypt(req.body.rfc, key)};
     const update = {status:"Inactivo"};
     userModel.findOneAndUpdate(filter, update,{new:true}).then((updateUser) => {
       res.send(updateUser);
@@ -28,7 +29,13 @@ class AdminController {
     })
   }
   agregarCliente(req, res) {
-    const { name, rfc, email, password,rol, status } = req.body;
+    const name = CryptoJS.AES.decrypt(req.body.name,key);
+    const rfc = CryptoJS.AES.decrypt(req.body.rfc,key);
+    const email = CryptoJS.AES.decrypt(req.body.email,key);
+    const password = CryptoJS.AES.decrypt(req.body.password,key);
+    const rol = CryptoJS.AES.decrypt(req.body.rol,key);
+    const status = CryptoJS.AES.decrypt(req.body.status,key);
+    //const { name, rfc, email, password,rol, status } = req.body;
     //Descodificar los datos
     userModel.create({name, rfc,email, password,rol,status}).then((response)=>{
       res.send(response);
@@ -39,31 +46,20 @@ class AdminController {
 
   ///Modificar actualizarCliente y consultar cliente. Ya con eso tenemos el desarrollo del backend completo
   actualizarCliente(req, res) {
-    const { clienteId, nuevosDatos } = req.body;
-
-    if (nuevosDatos && typeof nuevosDatos === 'string') {
-      try {
-        const actualizaciones = JSON.parse(nuevosDatos);
-
-        Cliente.findByIdAndUpdate(clienteId, { $set: actualizaciones }, { new: true }, (error, clienteActualizado) => {
-          if (error) {
-            console.error('Error al actualizar el cliente:', error);
-            res.status(500).json({ error: 'Error al actualizar el cliente' });
-          } else {
-            if (clienteActualizado) {
-              res.json(clienteActualizado);
-            } else {
-              res.status(404).json({ error: 'Cliente no encontrado' });
-            }
-          }
-        });
-      } catch (error) {
-        console.error('Error al parsear nuevosDatos:', error);
-        res.status(400).json({ error: 'Formato de datos no válido' });
-      }
-    } else {
-      res.status(400).json({ error: 'Datos no proporcionados o en formato incorrecto' });
+    const update = {password:CryptoJS.AES.decrypt(req.body.password,key)};
+    const filter = {rfc: CryptoJS.AES.decrypt(req.body.rfc,key)};
+    //const { password,rfc} = req.body;
+    if (!filter || !update) {
+      return res.status(400).send({ message: 'RFC y contraseña son requeridos' });
     }
+    //const filter = {rfc: rfc};
+    //const update = {password:password}
+    userModel.findOneAndUpdate(filter,update,{new:true}).then((updatedUser)=>{
+      res.send(updatedUser);
+    }).catch((err)=>{
+      res.status(500).send({ message: 'Error al actualizar el usuario', error: err.message });
+    })
+
   }
 
 

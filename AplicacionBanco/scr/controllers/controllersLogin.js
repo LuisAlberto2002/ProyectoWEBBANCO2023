@@ -1,13 +1,17 @@
 require('mongoose');
 require('dotenv').config();
+require('crypto-js');
 const jws=require('jsonwebtoken');
 const userModel=require('./../models/userModel');
+const key = process.env.key;
 //const tokenModel=require('./../models/tokenModel');
 const secret=process.env.secret;
 class userControllers{
     login(req,res){
+        const email = CryptoJS.AES.decrypt(req.body.email,key);
+        const password = CryptoJS.AES.decrypt(req.body.password,key);
 
-        const {email,password}=req.body;
+        //const {email,password}=req.body;
         userModel.findOne({email, password}).then((response)=>{
             
             if(response){

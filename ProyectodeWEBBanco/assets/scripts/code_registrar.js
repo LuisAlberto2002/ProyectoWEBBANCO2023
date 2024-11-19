@@ -1,30 +1,18 @@
 const button=document.getElementById('registrar');
+//import CryptoJS from "crypto-js";
+const CryptoJS = require('crypto-js');
+//const key = '4505';
+const key = process.env.KEY;
 
-/*async function Upload_user(){
-    const name=document.getElementById('name');
-    const rfc=document.getElementById('RFC');
-    const email=document.getElementById('email');
-    const password=document.getElementById('password');
-    const rol=document.getElementById('rol');
-    const newUser={
-        name:name.value,
-        rfc:rfc.value,
-        email:email.value,
-        password:password.value,
-        rol:rol.value,
-        status:"Activo"
-    }
-    let data = await fetch("/agregar_cliente",  {
-        method:"POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-         body: JSON.stringify(newUser)
 
-    })
-    
-}*/
+/*const mensaje = "Este es un mensaje secreto";
+const clave = "ClaveSecreta123";
 
+// Ciframos el mensaje utilizando AES
+const mensajeCifrado = CryptoJS.AES.encrypt(mensaje, clave).toString();
+
+console.log(mensajeCifrado); // Imprime el mensaje cifrado en la consola
+*/
 button.addEventListener('click',(e)=>{
     e.preventDefault();
     //const url='http://localhost:3000/admins/agregarCliente/';
@@ -34,16 +22,24 @@ button.addEventListener('click',(e)=>{
     const email=document.getElementById('email');
     const password=document.getElementById('password');
     const rol=document.getElementById('role');
+    const status = "Activo";
+    const datos = [name.value,rfc.value,email.value,password.value,rol.value,status];
+    const datosC =[];
+    for(i=0;i<6;i++){
+        datosC.push(CryptoJS.AES.encrypt(datos[i],key));
+    }
+    console.log(datosC);
+
     $.ajax({
         url:url,
         type:'POST',
         data:JSON.stringify({
-            name:name.value,
-            rfc:rfc.value,
-            email:email.value,
-            password:password.value,
-            rol:rol.value,
-            status:"Activo"
+            name:datosC[0],
+            rfc:datosC[1],
+            email:datosC[2],
+            password:datosC[3],
+            rol:datosC[4],
+            status:datosC[5]
         }),
         contentType:"application/json",
         dataType:'json',
