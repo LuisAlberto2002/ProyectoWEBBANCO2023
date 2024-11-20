@@ -1,5 +1,5 @@
 #name: Application # TEST-APP-ATLAS
-name: Application #AplicacionBanco
+name: AplicacionBanco
 
 on:
   push:
