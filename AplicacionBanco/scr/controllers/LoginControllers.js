@@ -1,4 +1,4 @@
-const User = require("../models/Users");
+const User = require("./../models/Users");
 
 // para manejar el login de login
 const loginUser = async (req, res) => {
