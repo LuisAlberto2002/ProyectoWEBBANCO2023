@@ -1,40 +1,62 @@
-require('mongoose');
-require('dotenv').config();
-require('crypto-js');
-const jws=require('jsonwebtoken');
-const userModel=require('./../models/userModel');
+require("mongoose");
+require("dotenv").config();
+require("crypto-js");
+const jws = require("jsonwebtoken");
+const userModel = require("./../models/userModel");
 const key = process.env.key;
 //const tokenModel=require('./../models/tokenModel');
-const secret=process.env.secret;
-class userControllers{
-    login(req,res){
-        const email = CryptoJS.AES.decrypt(req.body.email,key);
-        const password = CryptoJS.AES.decrypt(req.body.password,key);
+const secret = process.env.secret;
+class userControllers {
+  login(req, res) {
+    try {
+      const email = CryptoJS.AES.decrypt(req.body.email, key).toString(
+        CryptoJS.enc.Utf8
+      );
+      const password = CryptoJS.AES.decrypt(req.body.password, key).toString(
+        CryptoJS.enc.Utf8
+      );
 
-        //const {email,password}=req.body;
-        userModel.findOne({email, password}).then((response)=>{
-            
-            if(response){
-                const token=jws.sign({
-                    _id:response._id,
-                    email:response.email,
-                    role: response.role
-                },secret);
+      userModel
+        .findOne({ email })
+        .then((user) => {
+          if (!user) {
+            return res.status(404).send({ message: "Usuario no encontrado" });
+          }
 
-                res.send({
-                    token,
-                    role: response.role,
-                });
-            }else{
-                res.sendStatus(400);
-            }
+          const storedPassword = CryptoJS.AES.decrypt(
+            user.password,
+            key
+          ).toString(CryptoJS.enc.Utf8);
 
-        }).catch((err)=>{
-            console.log('Error: ',err);
+          if (storedPassword !== password) {
+            return res.status(401).send({ message: "Contraseña incorrecta" });
+          }
+
+          const token = jws.sign(
+            {
+              _id: user._id,
+              email: user.email,
+              role: user.role,
+            },
+            secret
+          );
+
+          res.send({
+            token,
+            role: user.role,
+          });
+        })
+        .catch((err) => {
+          console.error("Error: ", err);
+          res.status(500).send({ message: "Error interno del servidor" });
         });
+    } catch (err) {
+      console.error("Error: ", err);
+      res.status(500).send({ message: "Error interno del servidor" });
     }
+  }
 
-    /*tokenCreate(req,res){
+  /*tokenCreate(req,res){
         const {email}=req.body;
         const token=jws.sign({
             _id:email
@@ -47,4 +69,4 @@ class userControllers{
         });
     }  */
 }
-module.exports=new userControllers();
+module.exports = new userControllers();

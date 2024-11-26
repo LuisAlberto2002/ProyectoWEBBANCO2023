@@ -1,23 +1,41 @@
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv"; // Para cargar variables de entorno
+import usersRoutes from "./scr/rutas/Users"; // Rutas de usuarios
+import loginRoutes from "./scr/rutas/Login"; // Rutas de login
 
-const express = require('express');
-const mongoose = require('mongoose');
+dotenv.config(); // Carga las variables de entorno
+
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-const cors=require('cors');
+// Middleware para analizar JSON
+app.use(express.json());
 
-app.use(cors());
-const port=process.env.PORT || 3000;
-const rutaLogin=require('./scr/rutas/rutasLogin');
-const rutas=require('./scr/rutas/rutas');
-const mongoUrl='mongodb+srv://VulpesBlack:36944757Ara@vbdb.7dcjohk.mongodb.net/VBCompany?retryWrites=true&w=majority';
-app.use('', rutaLogin);
-app.use('',rutas);
+// Configuración de CORS
+app.use(
+  cors({
+    origin: [process.env.CLIENT_URL, "http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
+// Conexión a MongoDB
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Conexión a MongoDB exitosa"))
+  .catch((err) => console.error("Error al conectar a MongoDB:", err));
 
-mongoose.connect(mongoUrl).then(client=>{
-    app.listen(port,()=>{
-        console.log('VBDB ONLINE');
-    })
-}).catch(err=>{
-    console.log('VBDB DISSABLE', err);
+// Rutas
+app.use("/api/users", usersRoutes);
+app.use("/api/auth", loginRoutes); //ruta del login
+
+// Iniciar el servidor
+app.listen(PORT, () => {
+  console.log(`Servidor ejecutándose en el puerto ${PORT}`);
 });
