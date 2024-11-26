@@ -1,12 +1,9 @@
-import express from "express";
-import mongoose from "mongoose";
-import cors from "cors";
-import dotenv from "dotenv"; // Para cargar variables de entorno
-import usersRoutes from "./scr/rutas/Users"; // Rutas de usuarios
-import loginRoutes from "./scr/rutas/Login"; // Rutas de login
-
-dotenv.config(); // Carga las variables de entorno
-
+const express = require('express');
+const mongoose = require('mongoose');
+require('dotenv').config(); // Para cargar variables de entorno
+const usersRoutes= require("./scr/rutas/Users"); // Rutas de usuarios
+const loginRoutes= require("./scr/rutas/Login"); // Rutas de login
+const cors=require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
